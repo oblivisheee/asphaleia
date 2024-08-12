@@ -1,0 +1,3 @@
+[workspace]
+members = ["asphaleia", "asphaleia-crypto", "asphaleia-storage", "tests"]
+resolver = "2"
