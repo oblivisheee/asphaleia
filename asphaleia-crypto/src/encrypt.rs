@@ -41,14 +41,12 @@ mod tests {
     use super::*;
     use aes_gcm::{Aes128Gcm, Aes256Gcm};
     use hkdf::Hkdf;
-    use ring::rand::SecureRandom;
+    use ring::rand::{SecureRandom, SystemRandom};
     use zeroize::Zeroizing;
     fn generate_key(key_size: usize) -> Zeroizing<Vec<u8>> {
         let salt = [0u8; 32];
         let mut key_material = vec![0u8; 32];
-        ring::rand::SystemRandom::new()
-            .fill(&mut key_material)
-            .unwrap();
+        SystemRandom::new().fill(&mut key_material).unwrap();
 
         let mut key = Zeroizing::new(vec![0u8; key_size]);
         let hkdf = Hkdf::<sha3::Sha3_256>::new(Some(&salt), &key_material);
