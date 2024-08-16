@@ -8,6 +8,7 @@ use std::{
     sync::{Arc, RwLock},
 };
 use thiserror::Error;
+use x25519_dalek::{EphemeralSecret, PublicKey};
 use zeroize::{Zeroize, Zeroizing};
 
 #[derive(Error, Debug)]
@@ -207,7 +208,7 @@ impl ManageKey for DerivedKey {
         Ok(DerivedKey(Zeroizing::new(xored)))
     }
 
-    fn rotate_key(&mut self) -> Self {
+    fn rotate_key(&self) -> Self {
         Self::generate(self.len()).expect("Failed to generate new derived key")
     }
 
@@ -275,7 +276,7 @@ impl ManageKey for Key {
         Ok(Key(Zeroizing::new(xored)))
     }
 
-    fn rotate_key(&mut self) -> Self {
+    fn rotate_key(&self) -> Self {
         Self::generate(self.len()).expect("Failed to generate new key")
     }
 
@@ -302,9 +303,40 @@ impl FromHex for Key {
     }
 }
 
+pub struct DiffieHellman {
+    ephemeral_secret: EphemeralSecret,
+    public_key: PublicKey,
+}
+
+impl DiffieHellman {
+    pub fn new() -> Self {
+        let ephemeral_secret = EphemeralSecret::random();
+        let public_key = PublicKey::from(&ephemeral_secret);
+        Self {
+            ephemeral_secret,
+            public_key,
+        }
+    }
+
+    pub fn public_key(&self) -> &PublicKey {
+        &self.public_key
+    }
+
+    pub fn exchange(self, their_public: &PublicKey) -> [u8; 32] {
+        *self
+            .ephemeral_secret
+            .diffie_hellman(their_public)
+            .as_bytes()
+    }
+}
+
+pub fn diffie_public_key_from_secret(secret: &EphemeralSecret) -> PublicKey {
+    PublicKey::from(secret)
+}
+
 pub trait ManageKey: Sized + Zeroize {
     fn derive(&self, salt: Option<&[u8]>, info: &[u8], output_length: usize) -> DerivedKey;
-    fn rotate_key(&mut self) -> Self;
+    fn rotate_key(&self) -> Self;
     fn as_bytes(&self) -> &[u8];
     fn len(&self) -> usize;
     fn is_empty(&self) -> bool;
