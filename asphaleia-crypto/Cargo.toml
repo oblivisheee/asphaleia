@@ -3,14 +3,41 @@ name = "asphaleia-crypto"
 version = "0.1.0"
 edition = "2021"
 
+# authors = ["Your Name <your.email@example.com>"]
+#description = "A cryptographic library for secure communication"
+#license = "MIT OR Apache-2.0"
+#repository = "https://github.com/yourusername/asphaleia-crypto"
+#keywords = ["cryptography", "security", "encryption"]
+#categories = ["cryptography", "security"]
+
+[features]
+kyber = ["pqc_kyber"]
+
 [dependencies]
 aes-gcm = "0.10.3"
 hex = "0.4.3"
 hkdf = "0.12.4"
-ring = "0.17.8"
 sha3 = "0.10.8"
 thiserror = "1.0.63"
 zeroize = "1.8.1"
 serde = { version = "1.0.206", features = ["derive"] }
+rustls = "0.23.12"
+x25519-dalek = { version = "2.0.1", features = ["getrandom"] }
+rand = "0.8.5"
+ring = "0.17.8"
+webpki-roots = "0.26.3"
+rcgen = { version = "0.13.1", features = ["pem", "crypto", "x509-parser"] }
+pem = "3.0.4"
+bellman = "0.14.0"
+bls12_381 = "0.8.0"
+blake3 = "1.5.3"
+argon2 = "0.5.3"
+ed25519-dalek = { version = "2.1.1", features = ["rand_core"] }
+pqc_kyber = { version = "0.7.1", optional = true }
+
 [dev-dependencies]
 serde_json = "1.0.122"
+tempfile = "3.12.0"
+
+[target.'cfg(all(target_arch = "x86_64", feature = "kyber"))']
+rustflags = ["-C", "target-feature=+aes,+avx2,+sse2,+sse4.1,+bmi2,+popcnt"]
