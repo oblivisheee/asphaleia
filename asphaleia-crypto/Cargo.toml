@@ -21,11 +21,9 @@ sha3 = "0.10.8"
 thiserror = "1.0.63"
 zeroize = "1.8.1"
 serde = { version = "1.0.206", features = ["derive"] }
-rustls = "0.23.12"
 x25519-dalek = { version = "2.0.1", features = ["getrandom"] }
 rand = "0.8.5"
 ring = "0.17.8"
-webpki-roots = "0.26.3"
 rcgen = { version = "0.13.1", features = ["pem", "crypto", "x509-parser"] }
 pem = "3.0.4"
 bellman = "0.14.0"
