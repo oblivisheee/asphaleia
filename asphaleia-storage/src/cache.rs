@@ -1,8 +1,9 @@
-use crate::backup::Backup;
-use crate::fragment::Fragment;
+use super::{backup::Backup, fragment::Fragment};
 use asphaleia_crypto::hash::Sha256;
-use std::collections::HashMap;
-use std::time::{Duration, Instant};
+use std::{
+    collections::HashMap,
+    time::{Duration, Instant},
+};
 use thiserror::Error;
 
 #[derive(Error, Debug)]

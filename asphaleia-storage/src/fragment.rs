@@ -1,7 +1,9 @@
-use super::compression::{
-    compress_bytes, compress_bytes_with_dict, decompress_bytes, decompress_bytes_with_dict,
+use super::{
+    compression::{
+        compress_bytes, compress_bytes_with_dict, decompress_bytes, decompress_bytes_with_dict,
+    },
+    table::Table,
 };
-use super::table::Table;
 use asphaleia_crypto::hash::Sha256;
 use serde::{Deserialize, Serialize};
 use std::time::SystemTime;

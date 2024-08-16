@@ -1,4 +1,4 @@
-use crate::{
+use super::{
     compression::{compress_bytes, decompress_bytes},
     fragment::{Fragment, FragmentError},
     versioning::VersionControl,
