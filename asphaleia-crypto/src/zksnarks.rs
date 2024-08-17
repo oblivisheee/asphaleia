@@ -118,7 +118,7 @@ mod tests {
     fn test_invalid_proof() {
         let a = Scalar::from(2);
         let b = Scalar::from(3);
-        let c = a * b;
+        let _c = a * b;
 
         let circuit = TestCircuit {
             a: Some(a),
