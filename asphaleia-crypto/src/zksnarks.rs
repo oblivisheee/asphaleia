@@ -126,7 +126,7 @@ mod tests {
         };
 
         let (proof, vk) = generate_proof(circuit).unwrap();
-        let invalid_c = Scalar::from(7); // This is not the correct result of a * b
+        let invalid_c = Scalar::from(7);
         let result = verify_zk_proof(&proof, &vk, &[invalid_c]);
         assert!(result.is_err());
     }
