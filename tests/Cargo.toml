@@ -1,9 +1,0 @@
-[package]
-name = "tests"
-version = "0.1.0"
-edition = "2021"
-
-[dependencies]
-asphaleia-storage = { path = "../asphaleia-storage" }
-asphaleia-crypto = { path = "../asphaleia-crypto" }
-asphaleia-net = { path = "../asphaleia-net" }

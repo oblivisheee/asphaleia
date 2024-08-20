@@ -1,3 +1,9 @@
 [workspace]
-members = ["asphaleia", "asphaleia-crypto", "asphaleia-net", "asphaleia-storage", "tests"]
+members = [
+    "asphaleia",
+    "asphaleia-core",
+    "asphaleia-crypto",
+    "asphaleia-net",
+    "asphaleia-storage",
+]
 resolver = "2"
